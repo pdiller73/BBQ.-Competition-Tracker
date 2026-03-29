@@ -1,0 +1,28 @@
+name: Unzip and Commit
+
+on:
+  push:
+    paths:
+      - 'competition-pro-web.zip'
+      
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Unzip competition-pro-web.zip
+        run: |
+          unzip competition-pro-web.zip
+
+      - name: Configure Git
+        run: |
+          git config --local user.email 'action@github.com'
+          git config --local user.name 'GitHub Action'
+
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m 'Extracted contents of competition-pro-web.zip' || echo 'No changes to commit'
+          git push
