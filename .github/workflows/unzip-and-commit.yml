@@ -1,10 +1,11 @@
 name: Unzip and Commit
 
 on:
-  push:
-    paths:
-      - 'competition-pro-web.zip'
-      
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   unzip:
     runs-on: ubuntu-latest
@@ -14,7 +15,7 @@ jobs:
 
       - name: Unzip competition-pro-web.zip
         run: |
-          unzip competition-pro-web.zip
+          unzip -o competition-pro-web.zip
 
       - name: Configure Git
         run: |
@@ -25,4 +26,4 @@ jobs:
         run: |
           git add .
           git commit -m 'Extracted contents of competition-pro-web.zip' || echo 'No changes to commit'
-          git push
+          git push origin main
