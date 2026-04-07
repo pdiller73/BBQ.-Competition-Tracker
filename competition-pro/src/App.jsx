@@ -1511,7 +1511,7 @@ function Scheduler({ competitionType }) {
     items.push(makeItem(
       fireStartAbs - 30,
       "🌙 Night-Before Prep",
-      "Trim & inject all meats. Mix rubs. Prep your garnish box. Count toothpicks if using for chicken. Set out Cambro.",
+      "Trim & inject all meats. Mix rubs. Verify pork category wording in your event packet (collar may be listed). Prep garnish if allowed. Count toothpicks. Set out Cambro and boxes.",
       "fire", { fireKey: "night_prep" }
     ));
     items.push(makeItem(
@@ -1585,7 +1585,7 @@ function Scheduler({ competitionType }) {
         items.push(makeItem(
           turnInAbs - 5,
           `🚶 ${meat} — Walk to Table`,
-          "5 min before official time. Head to turn-in NOW. Box must be in your hands.",
+          "Walk to table NOW. Arrive with margin — window is 5 min before to 5 min after. DQ if late, no appeals.",
           "warning", { meat, fireKey: `walk_${mkey}` }
         ));
       }
@@ -1625,7 +1625,7 @@ function Scheduler({ competitionType }) {
       <div className="card">
         <div className="card-title"><span>⏱</span> Reverse Cook Scheduler</div>
         <p style={{ fontSize: 14, color: "var(--muted)", marginBottom: 20 }}>
-          Set your turn-in times and cook style. We'll reverse-engineer your entire timeline — from when to fire up the smoker all the way to box drop.
+          Set your turn-in times and cook style. We'll build your full reverse timeline — fire start through box drop. Brisket cooks first, chicken last. Drive ribs and pork by tenderness, not just the clock.
         </p>
 
         {/* Cook Style Selector */}
@@ -1756,7 +1756,7 @@ function Scheduler({ competitionType }) {
           </div>
           {isKcbs && (
             <div style={{ fontSize: 12, color: "var(--muted)", marginBottom: 16, padding: "8px 12px", background: "rgba(255,77,0,0.08)", borderRadius: 6, borderLeft: "3px solid var(--fire)" }}>
-              ⚠️ KCBS turn-in window is 5 min before and 5 min after official time. One second late = DQ. No exceptions.
+              ⚠️ KCBS turn-in window is 5 min before to 5 min after official time. Arrive early — one second late = DQ, no exceptions.
             </div>
           )}
           <div className="timeline">
@@ -2018,26 +2018,28 @@ function AICoaching({ competitions, competitionType }) {
   ];
 
   const SYSTEM = isKcbs
-    ? `You are a world-class KCBS competition BBQ coach with 20+ years on the circuit. You know every rule and winning technique cold. Here is what you know as fact — work from this:
+    ? `You are a world-class KCBS competition BBQ coach. Here is what you know as fact:
 
-SCORING: Taste 57% (×2.2972), Tenderness 29% (×1.1428), Appearance 14% (×0.56). 6 judges per table, lowest score dropped, top 5 count. Perfect score = 180. Need 170+ per category to contend for overall. A score difference of 5-9-9 vs 9-8-9 means taste wins — always protect taste first.
+SCORING: Taste 57% (x2.2972), Tenderness 29% (x1.1428), Appearance 14% (x0.56). 6 judges, drop lowest total, top 5 count. Perfect = 180. Taste wins ties — protect it first.
 
-TURN-IN: Chicken 12:00, Ribs 12:30, Pork 13:00, Brisket 13:30. Window is 5 min either side. ONE SECOND LATE = DQ. No exceptions, no appeals.
+TURN-IN: Chicken 12:00, Ribs 12:30, Pork 13:00, Brisket 13:30. Window is 5 min before to 5 min after posted time. Arrive early — one second late is DQ, no appeals. Legal heat: wood, pellets, charcoal. No gas or electric.
 
-CHICKEN: Judges must take first bite including skin — bite-through skin is non-negotiable. Crispy skin fails because it pulls away from the meat. The winning method: peel skin, scrape subcutaneous fat with a spoon or knife until almost translucent, reshape into a rectangle, cook in a butter bath at 275-300°F covered for first phase, then uncover to firm up. Brands: Bell & Evans, Smart Chicken, Springer Mountain Farms. Cook 16 thighs, turn in 6. Pull at 175-195°F internal depending on method. Sauce should be a light lacquer, not dripping — KCBS is finger food. Remove the vein near the bone and the triangular fat pocket. If you use toothpicks to hold skin, count them and remove every single one before turn-in (DQ risk). Sweet flavor profile wins most often. Cherry or peach wood.
+COOK ORDER: Brisket on first (longest runway). Pork shoulder/collar next. Ribs mid-cook by tenderness not the clock. Chicken last — fastest and most box-sensitive. Build your box earlier than you think, then do a final pass before walking. Bank extra time into the hold, not rush the turn-in.
 
-PORK RIBS: St. Louis cut spareribs beat baby backs in competition more often. Non-fall-off-bone is the standard — judges want a clean bite that leaves a mark on the bone, with the rest of the meat staying put. Remove the membrane. Most teams do 2-2-1 or similar wrap methods with butter, brown sugar, honey, and fruit juice. Sauce at the end and let it set 10-15 min. Don't over-sauce. Temperature target 195-203°F internal, bend test to confirm. Separate ribs completely in the box so each judge gets their own piece — if two ribs are stuck together, a judge may go without and score a 1 on all criteria.
+CHICKEN: Bite-through skin is non-negotiable — peel, scrape fat until translucent, reshape, butter bath 275-300F. Cook 16 thighs, box 6. Pull 175-195F depending on method. Light lacquer sauce. Remove vein and fat pocket. Toothpick DQ risk — count every one out. Sweet profile, cherry or peach wood.
 
-PORK BUTT: Legal cuts are Boston butt, Boston roast, picnic, collar, whole shoulder. No loin, chop, or tenderloin. The money muscle (opposite end from the bone) is the star — it has the best bark and texture. Pull it separately at 210-214°F while the rest of the butt finishes at 200-205°F. Top boxes show 2-3 presentations: sliced money muscle, horn chunks, and pulled. Use bone-in butts with good marbling and look for a large money muscle at the market. Inject everything except the money muscle (inject lightly). Rest minimum 1 hour in Cambro. Don't over-pull — fine shredded pork looks like cat food. Keep it in longer strands or chunks.
+PORK RIBS: St. Louis cut wins more often than baby backs. Non-fall-off-bone — clean bite, meat stays. Remove membrane. Wrap with butter/sugar/honey/juice. Sauce at end, set 10-15 min. Separate ribs completely in box.
 
-BRISKET: Upgrade your meat — Choice grade rarely wins. Prime is minimum, Snake River Farms Wagyu Gold or A9 Australian Wagyu is what the top teams use. Separate point from flat — they cook differently. Probe tenderness is the only real indicator — it should glide in like butter at 200-210°F. Wrap in butcher paper (better bark) or foil (more tender) at 165-170°F when color is right. Rest minimum 2 hours, 3-4 is better. Slice flat pencil-thin (1/4") against the grain. The pull test: drape a slice over your finger — it should bend without breaking (#LimpBrisket). Six uniform slices from the center of the flat. Burnt ends are optional but high-reward if cooked well. Brush slices with strained au jus before boxing. No visible white fat on slices.
+PORK SHOULDER/COLLAR: Legal cuts include Boston butt, picnic, collar, and whole shoulder — always verify exact wording in your event packet, collar language varies by contest. Money muscle pulls separately at 210-214F. Rest 1+ hour in Cambro. Three presentations: sliced money muscle, chunks, pulled. Do not over-pull.
 
-BOX BUILDING: Legal garnish only — curly parsley, flat parsley, or green leaf lettuce. NO red leaf lettuce, NO kale, NO fruit, NO vegetables, NO sculpted meat (DQ). The "putting green" method (dense bed of parsley) is proven. Fill the box — judges don't like sparse presentations. Clean box edges with a damp paper towel. Meat should be detached. Sauce should look like a glaze, not a puddle. KCBS judges eat with their fingers. Cold meat gets dinged — keep everything in a hot Cambro until you walk.
+BRISKET: Prime minimum, Wagyu preferred. Low/slow and hot/fast both win at high levels — cook method varies by team. Probe feel is the real indicator (200-210F range). Rest 2-4 hours. Slice flat 1/4 inch against grain. Drape test — should bend without breaking. No white fat on slices.
 
-FLAVOR PROFILE: KCBS judges trend sweet. Sweet-heat or sweet-savory profiles win more often than pure savory or heavy smoke. Don't overcook the smoke — you want clean, light smoke flavor, not creosote. Balance is the word — don't try to knock judges out with heat or salt. Blues Hog, Kosmos Q, and Meat Mitch sauces are common winners. Layer flavors: injection → rub → wrap liquid → finish sauce.
+BOX: Legal garnish only — curly/flat parsley or green leaf lettuce. No kale, red leaf, fruit, vegetables, or sculpted meat (DQ). Garnish rules depend on the organizer's event packet — never assume they are the same at every contest. Putting green method works. Fill the box, clean edges, meat detached, sauce is a glaze not a puddle. Keep in hot Cambro until you walk.
+
+FLAVOR: KCBS trends sweet. Sweet-heat or sweet-savory beats pure savory. Clean light smoke. Layer: injection, rub, wrap liquid, finish sauce.
 
 Give brutally honest, specific, actionable advice. No fluff. Under 400 words.`
-    : `You are an expert open-circuit competition BBQ coach. You know open judging formats, regional style differences, and how to adapt from KCBS to open formats. Give direct, specific, actionable advice under 400 words.`;
+    : `You are an expert open-circuit competition BBQ coach. You know open judging formats, regional differences, and how to adapt from KCBS to open formats. Give direct, specific, actionable advice under 400 words.`;
 
   const buildPrompt = () => {
     const hist = competitions.slice(-5).map(c=>`${c.name} (${c.date}): #${c.overallPlace||"?"}`).join(", ")||"No history yet";
@@ -2185,7 +2187,7 @@ function RecipeBook({recipes,updateState}){
 const SG=[
   {meat:"Chicken",icon:"🍗",target:"Bone-in thighs, 5-6 oz after trim",brands:["Bell & Evans","Smart Chicken","Springer Mountain Farms","Sanderson Farms"],look:["Air-chilled — better skin texture","Uniform size — cook 16, turn in 6","Fresh not frozen if possible","No bruising near bone"],avoid:["Over 7oz or under 4oz","Enhanced/injected","Sticky or discolored skin"],tip:"Buy a case. Sort by weight. Target 5-5.5oz raw. Check vein placement on every piece."},
   {meat:"Pork Ribs",icon:"🥩",target:"St. Louis cut, 2.5-3.5 lbs per rack",brands:["Hormel","IBP","Smithfield","Farmland"],look:["St. Louis cut — more uniform than baby backs","Even thickness across rack","Good meat over bones, no shiners","Bright pink meat, white fat"],avoid:["Enhanced/injected ribs","Racks under 2 lbs","Baby backs for KCBS"],tip:"Buy 3-4 racks, pick the best two. Tight membrane pulls clean."},
-  {meat:"Pork (Butt/Shoulder)",icon:"🐷",target:"Bone-in Boston butt, 8-10 lbs, big money muscle",brands:["Hormel Always Tender (plain)","IBP","Swift"],look:["Large prominent money muscle opposite bone","Good marbling","Bright red meat, white fat"],avoid:["Pre-injected","Small money muscle","Boneless"],tip:"Feel the money muscle — firm cylinder at front end. Biggest one wins. That is your box star."},
+  {meat:"Pork (Butt/Shoulder/Collar)",icon:"🐷",target:"Bone-in Boston butt or collar, 8-10 lbs, big money muscle",brands:["Hormel Always Tender (plain)","IBP","Swift"],look:["Large prominent money muscle opposite bone","Good marbling","Bright red meat, white fat"],avoid:["Pre-injected","Small money muscle","Boneless"],tip:"Feel the money muscle — firm cylinder at front end. Biggest one wins. Pork collar is also KCBS-legal at many events — always verify the exact pork cut wording in your event packet."},
   {meat:"Beef Brisket",icon:"🐄",target:"Whole packer, 12-16 lbs, Prime or Wagyu",brands:["Snake River Farms Wagyu Gold","A9 Australian Wagyu","CAB Prime","USDA Prime via Restaurant Depot"],look:["Prime or Wagyu — Choice rarely wins","Flat 1.5in+ thick","Heavy marbling flat and point","Flexible when picked up"],avoid:["Choice at major comps","Flat-only","Corned beef (illegal)","Under 12 lbs"],tip:"Order Wagyu 2 weeks ahead. Thaw all week. Trim Tue/Wed. Separate point from flat before cooking."},
 ];
 function MeatShoppingGuide(){
@@ -2472,7 +2474,7 @@ export default function App({
               Sets the default for new competitions. You can still change individual comps when logging them.
             </p>
             {[
-              { id: "kcbs4",     label: "🏆 KCBS 4 Meat",        desc: "All 4 official KCBS categories — Chicken, Ribs, Pork, Brisket. Full KCBS scoring weights, 6-judge tables, strict turn-in windows." },
+              { id: "kcbs4",     label: "🏆 KCBS 4 Meat",        desc: "All 4 KCBS Master Series categories — Chicken, Ribs, Pork (butt/collar/shoulder), Brisket. Full KCBS scoring weights, 6-judge tables, 5-min turn-in window either side." },
               { id: "kcbs2",     label: "🐔 KCBS 2 Meat",        desc: "Backyard format — Chicken and Pork Ribs only. Same KCBS scoring rules apply." },
               { id: "kcbs1ribs", label: "🥩 KCBS 1 Meat (Ribs)", desc: "Single category — Pork Ribs only. KCBS rules and scoring." },
               { id: "open",      label: "🔥 Open / Non-KCBS",    desc: "Flexible categories and custom scoring for non-sanctioned comps, invitationals, and backyard contests." },
@@ -2501,3 +2503,4 @@ export default function App({
     </>
   );
 }
+
